@@ -12,15 +12,8 @@ import (
 
 func Connection(config config.Config) (*mongo.Client, error) {
 	// Build the MongoDB connection string
-	var uri string
 
-	if config.DB_USER != "" && config.DB_PASS != "" {
-		uri = fmt.Sprintf("mongodb://%s:%s@%s:%s/%s",
-			config.DB_USER, config.DB_PASS, config.DB_HOST, config.DB_PORT, config.DB_NAME)
-	} else {
-		uri = fmt.Sprintf("mongodb://%s:%s/%s",
-			config.DB_HOST, config.DB_PORT, config.DB_NAME)
-	}
+	uri := fmt.Sprintf("mongodb://%s:%s/%s", config.DB_HOST, config.DB_PORT, config.DB_NAME)
 
 	// Create a MongoDB client with the connection string
 	clientOptions := options.Client().ApplyURI(uri)
